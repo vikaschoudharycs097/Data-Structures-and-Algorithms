@@ -19,9 +19,9 @@ OR <br />
 
 **Linear Search** <br />
 ```
-int linearSearch(vector<int>vals, int val) {
-    for (int i = 0, n = vals.size(); i < n; i++) {
-        if (vals[i] == val) {
+int linearSearch(const vector<int>& nums, int target) {
+    for (int i = 0, n = nums.size(); i < n; i++) {
+        if (nums[i] == target) {
             return i;
         }
     }
@@ -36,15 +36,15 @@ int linearSearch(vector<int>vals, int val) {
 - *Assumption*: array is sorted
 
 ```
-int binarySearch(vector<int> vals, int val) {
+int binarySearch(const vector<int>& nums, int target) {
     int low = 0;
-    int high = vals.size() - 1;
+    int high = nums.size() - 1;
     int mid;
     while (low <= high) {
         mid = low + (high - low) / 2;
-        if (vals[mid] == val) {
+        if (nums[mid] == target) {
             return mid;
-        } else if (vals[mid] < val) {
+        } else if (nums[mid] < target) {
             low = mid + 1;
         } else {
             high = mid - 1;
@@ -60,7 +60,7 @@ int binarySearch(vector<int> vals, int val) {
 **Bubble Sort**
 - Also known as Sink sort
 ```
-void sort(vector<int> nums) {
+void sort(vector<int>& nums) {
     int n = nums.size();
     bool isSorted = false;
     for (int i = 0; i < n && !isSorted; i++) {
@@ -82,7 +82,7 @@ void sort(vector<int> nums) {
 
 **Selection Sort**
 ```
-void sort(vector<int> nums) {
+void sort(vector<int>& nums) {
     int n = nums.size();
     int minIndex;
     for (int i = 0; i < n; i++) {
@@ -105,7 +105,7 @@ void sort(vector<int> nums) {
 
 **Insertion Sort**
 ```
-void sort(vector<int> nums) {
+void sort(vector<int>& nums) {
     int n = nums.size();
     for (int i = 1; i < n; i++) {
         int j = i - 1;
@@ -122,3 +122,48 @@ void sort(vector<int> nums) {
 - Space Complexity: O(1), θ(1), Ω(1) <br />
 - Stable and in-place sorting
 - Comparison operation(max): n^2
+
+**Merge Sort**
+```
+// Divide array into two halves recursively
+void divide(vector<int>& nums, int low, int high) {
+    if (low < high) {
+        int mid = low + (high - low) / 2;
+        divide(nums, low, mid);
+        divide(nums, mid+1, high);
+        merge(nums, low, mid, high);
+    }
+}
+
+// Merge two sorted halves into sorted array
+void merge(vector<int>& nums, int low, int mid, int high) {
+    int i = low;
+    int j = mid + 1;
+    int k = 0;
+    vector<int> tmp(high - low + 1);
+    while (i <= mid && j <= high) {
+        if (nums[i] <= nums[j]) {
+            tmp[k] = nums[i++];
+        } else {
+            tmp[k] = nums[j++];
+        }
+        k++;
+    }
+
+    while (i <= mid) {
+        tmp[k++] = nums[i++];
+    }
+
+    // Copy back from temporary array
+    for (i = 0; i < k; i++) {
+        nums[low + i] = tmp[i];
+    }
+}
+
+void sort(vector<int>& nums) {
+    divide(nums, 0, nums.size() - 1);
+}
+```
+- Time Complexity: O(n * log n), θ(n * log n), Ω(n * log n) <br />
+- Space Complexity: O(n), θ(n), Ω(n) <br />
+- Stable and Not in-place sorting
