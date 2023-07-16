@@ -18,7 +18,7 @@ OR <br />
 - Dynamic array: Can be resized during runtime time
 
 **Linear Search** <br />
-```
+```C++
 int linearSearch(const vector<int>& nums, int target) {
     for (int i = 0, n = nums.size(); i < n; i++) {
         if (nums[i] == target) {
@@ -35,7 +35,7 @@ int linearSearch(const vector<int>& nums, int target) {
 **Binary Search** <br />
 - *Assumption*: array is sorted
 
-```
+```C++
 int binarySearch(const vector<int>& nums, int target) {
     int low = 0;
     int high = nums.size() - 1;
@@ -59,7 +59,7 @@ int binarySearch(const vector<int>& nums, int target) {
 
 **Bubble Sort**
 - Also known as Sink sort
-```
+```C++
 void sort(vector<int>& nums) {
     int n = nums.size();
     bool isSorted = false;
@@ -81,7 +81,7 @@ void sort(vector<int>& nums) {
 - Comparison operation(max): n^2
 
 **Selection Sort**
-```
+```C++
 void sort(vector<int>& nums) {
     int n = nums.size();
     int minIndex;
@@ -104,7 +104,7 @@ void sort(vector<int>& nums) {
 - Comparison operation: n^2
 
 **Insertion Sort**
-```
+```C++
 void sort(vector<int>& nums) {
     int n = nums.size();
     for (int i = 1; i < n; i++) {
@@ -124,7 +124,7 @@ void sort(vector<int>& nums) {
 - Comparison operation(max): n^2
 
 **Merge Sort**
-```
+```C++
 // Divide array into two halves recursively
 void divide(vector<int>& nums, int low, int high) {
     if (low < high) {
