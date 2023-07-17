@@ -167,3 +167,39 @@ void sort(vector<int>& nums) {
 - Time Complexity: O(n * log n), θ(n * log n), Ω(n * log n) <br />
 - Space Complexity: O(n), θ(n), Ω(n) <br />
 - Stable and Not in-place sorting
+
+**Quick Sort**
+```C++
+int partition(vector<int>& nums, int low, int high) {
+    int j = low - 1;
+    int randIndex = rand() % (high - low + 1) + 1;
+    int pivotEle = nums[randIndex];
+    nums[randIndex] = nums[high];
+    for (int i = low; i < high; i++) {
+        if (nums[i] < pivotEle) {
+            j++;
+            swap(nums[i], nums[j]);
+        }
+    }
+    j++;
+    nums[high] = nums[j];
+    nums[j] = pivotEle;
+
+    return j;
+}
+
+void quickSort(vector<int>& nums, int low, int high) {
+    if (low < high) {
+        int pivot = partition(nums, low, high);
+        quickSort(nums, low, pivot - 1);
+        quickSort(nums, pivot + 1, high);
+    }
+}
+
+void sort(vector<int>& nums) {
+    quickSort(nums, 0, nums.size() - 1);
+}
+```
+- Time Complexity: O(n^2), θ(n * log n), Ω(n * log n) <br />
+- Space Complexity: O(n), θ(log n), Ω(log n) <br />
+- Not Stable and in-place sorting
