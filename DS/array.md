@@ -170,6 +170,9 @@ void sort(vector<int>& nums) {
 
 **Quick Sort**
 ```C++
+// Select pivot element and move it to proper position
+// Left side of pivot element are smaller than it and 
+// right side are greater than it.
 int partition(vector<int>& nums, int low, int high) {
     int j = low - 1;
     int randIndex = rand() % (high - low + 1) + 1;
@@ -202,4 +205,45 @@ void sort(vector<int>& nums) {
 ```
 - Time Complexity: O(n^2), θ(n * log n), Ω(n * log n) <br />
 - Space Complexity: O(n), θ(log n), Ω(log n) <br />
+- Not Stable and in-place sorting
+
+**Heap Sort**
+```C++
+void heapify(vector<int>& nums, int i, int n) {
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+    int maxPos = i;
+    if (left < n && nums[left] > nums[maxPos]) {
+        maxPos = left;
+    }
+
+    if (right < n && nums[right] > nums[maxPos]) {
+        maxPos = right;
+    }
+
+    if (i != maxPos) {
+        swap(nums[i], nums[maxPos]);
+        heapify(nums, maxPos, n);
+    }
+}
+
+void createHeap(vector<int>& nums) {
+    int n = nums.size();
+    for (int i = n / 2; i >= 0; i--) {
+        heapify(nums, i, n);
+    }
+}
+
+void sort(vector<int>& nums) {
+    createHeap(nums);
+    int n = nums.size();
+    for (int i = n - 1; i >= 0; i--) {
+        swap(nums[i], nums[0]);
+        heapify(nums, 0, i);
+    }
+}
+
+```
+- Time Complexity: O(n * log n), θ(n * log n), Ω(n * log n) <br />
+- Space Complexity: O(1), θ(1), Ω(1) <br />
 - Not Stable and in-place sorting
